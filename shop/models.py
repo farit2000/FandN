@@ -41,7 +41,7 @@ class Order(models.Model):
 
 
 class ProductInOrder(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    product = models.OneToOneField(Product, on_delete=models.PROTECT)
     count = models.IntegerField(default=1)
     total_price = models.IntegerField(default=0)
     order = models.ForeignKey(Order, related_name='products', on_delete=models.CASCADE, default=0)
