@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.postgres.fields import JSONField
+from django.contrib.postgres.fields import JSONField, ArrayField
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
@@ -18,7 +18,8 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.IntegerField()
     description = models.TextField()
-    images = models.ImageField(upload_to='shop/static/media/products_images')
+    # ArrayField!
+    images = ArrayField(models.ImageField(upload_to='media/products_images'))
     attributes = JSONField(null=True, blank=True)
 
     def __str__(self):
