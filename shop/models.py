@@ -15,15 +15,21 @@ class Client(models.Model):
 
 
 class Product(models.Model):
+    PRODUCT_CATEGORIES = [
+        ('VA', 'VASE')]
     name = models.CharField(max_length=100)
     price = models.IntegerField()
     description = models.TextField()
-    # ArrayField!
-    images = ArrayField(models.ImageField(upload_to='media/products_images'))
+    category = models.CharField(max_length=2, choices=PRODUCT_CATEGORIES, default='VA')
     attributes = JSONField(null=True, blank=True)
 
     def __str__(self):
         return "%s, price: %s" % (self.name, self.price)
+
+
+class Image(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='media/products_images')
 
 
 class Order(models.Model):
