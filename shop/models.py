@@ -17,11 +17,12 @@ class Client(models.Model):
 class Product(models.Model):
     PRODUCT_CATEGORIES = [
         ('VA', 'VASE')]
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     price = models.IntegerField()
     description = models.TextField()
     category = models.CharField(max_length=2, choices=PRODUCT_CATEGORIES, default='VA')
     attributes = JSONField(null=True, blank=True)
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return "%s, price: %s" % (self.name, self.price)
@@ -29,7 +30,7 @@ class Product(models.Model):
 
 class Image(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='media/products_images')
+    image = models.ImageField(upload_to='shop/static/media/products_images')
 
 
 class Order(models.Model):
