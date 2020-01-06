@@ -9,28 +9,28 @@ class ClientForm(forms.ModelForm):
             'class': 'form-control',
             'placeholder': 'Имя'
         }
-    ), label='')
+    ), label='', required=True)
     last_name = forms.CharField(widget=forms.TextInput
         (
         attrs={
             'class': 'form-control',
             'placeholder': 'Фамилия'
         }
-    ), label='')
-    email = forms.CharField(widget=forms.TextInput
+    ), label='', required=True)
+    email = forms.EmailField(widget=forms.TextInput
         (
         attrs={
             'class': 'form-control',
             'placeholder': 'Email'
         }
-    ), label='')
+    ), label='', required=True)
     phone = forms.CharField(widget=forms.TextInput
         (
         attrs={
             'class': 'form-control',
             'placeholder': 'Телефон'
         }
-    ), label='')
+    ), label='', required=True)
 
     class Meta:
         model = Client
