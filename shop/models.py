@@ -17,11 +17,12 @@ class Client(models.Model):
 class Product(models.Model):
     PRODUCT_CATEGORIES = [
         ('VA', 'VASE')]
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, unique=True)
     price = models.IntegerField()
     description = models.TextField()
     category = models.CharField(max_length=2, choices=PRODUCT_CATEGORIES, default='VA')
     attributes = JSONField(null=True, blank=True)
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return "%s, price: %s" % (self.name, self.price)
@@ -48,8 +49,8 @@ class Order(models.Model):
 
 
 class ProductInOrder(models.Model):
-    product = models.OneToOneField(Product, on_delete=models.PROTECT)
-    count = models.IntegerField(default=1)
+    product = models.OneToOneField(Product, related_name='order_items', on_delete=models.CASCADE)
+    count = models.PositiveIntegerField(default=1)
     total_price = models.IntegerField(default=0)
     order = models.ForeignKey(Order, related_name='products', on_delete=models.CASCADE, default=0)
 

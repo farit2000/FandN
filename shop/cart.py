@@ -38,7 +38,7 @@ class Cart:
         product_ids = self.cart.keys()
         products = Product.objects.filter(id__in=product_ids)
         for product in products:
-            self.cart[str(product.id)]['id'] = product.id
+            self.cart[str(product.id)]['id'] = product.slug
             self.cart[str(product.id)]['name'] = product.name
             self.cart[str(product.id)]['price'] = product.price
             self.cart[str(product.id)]['description'] = product.description
