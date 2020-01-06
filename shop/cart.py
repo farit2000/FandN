@@ -10,24 +10,28 @@ class Cart:
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
 
-    def add(self, product):
+    def add(self, product, quantity):
         product_id = str(product.id)
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 1,
+            self.cart[product_id] = {'quantity': quantity,
                                      'price': str(product.price)}
         else:
-            self.cart[product_id]['quantity'] += 1
+            self.cart[product_id]['quantity'] += quantity
         self.save()
 
     def save(self):
         self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True
+        # self.session.save()
 
     def remove(self, product):
         product_id = str(product.id)
         if product_id in self.cart:
             del self.cart[product_id]
             self.save()
+
+    def __contains__(self, product):
+        return str(product.id) in list(self.cart.keys())
 
     def __iter__(self):
         product_ids = self.cart.keys()

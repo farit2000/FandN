@@ -7,39 +7,62 @@
         }
 
         .img-choices-container {
-                height: 70px;
+            height: 70px;
         }
     </style>
     <div class="p-3 p-md-5 mx-auto bg-light">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md-7 col-lg-6">
+                <div class="col-12 col-sm-6">
                     <img src="/{{ product.images.first.image }}" class="img-fluid mb-3" alt="{{ product.name }}">
-                    <div class="img-choices-container d-flex justify-content-center">
+                    <div class="img-choices-container d-flex justify-content-center mb-4">
                         {% for image in product.images.all %}
                             <img src="/{{ image.image }}" alt="vase" class="mr-2 img-choice" width="70">
                         {% endfor %}
                     </div>
                 </div>
-                <div class="d-block d-md-none w-100"></div>
-                <div class="col-12 col-md-5 col-lg-6">
-                    <h2 class="mt-4 mt-sm-0">{{ product.name }}</h2>
+                <div class="d-block d-sm-none w-100"></div>
+                <div class="col-12 col-sm-6">
+                    <h2>{{ product.name }}</h2>
                     <p class="mt-4 mb-5">{{ product.description }}</p>
-                    <p class="mb-2 font-weight-bold" style="font-size: 1.6rem;">{{ product.price }} руб.</p>
-                    <form class="form-group">
+                    <p class="ont-weight-bold" style="font-size: 1.6rem;">{{ product.price }} руб.</p>
+                    <form class="form-group mt-3 mb-4">
+                        {% csrf_token %}
                         <div class="my-3">
                             <label for="quantity">Количество</label>
-                            <input type="number" value="1" min="1" step="1" class="form-control w-25" id="quantity"/>
+                            <input type="number" value="1" min="1" step="1" class="form-control w-25" id="quantity" name="quantity"/>
                         </div>
-                        <button type="button" class="btn btn-outline-primary">Добавить в корзину</button>
+                        {% if is_activated_btn %}
+                           <a href="/basket/">
+                               <button type="button" class="btn btn-outline-secondary">Перейти в корзину</button>
+                           </a>
+                        {% else %}
+                            <button type="submit" class="btn btn-outline-primary">Добавить в корзину</button>
+                        {% endif %}
                     </form>
+                    {% for attrs_title, attrs in product.attributes.items %}
+                        <table class="table table-striped">
+                            <tbody>
+                                <p class="display-5 font-weight-bold">{{ attrs_title }}</p>
+                                {% for attr_name, attr_val in attrs.items %}
+                                    <tr>
+                                        <td>{{ attr_name }}</td>
+                                        <td class="w-25">{{ attr_val }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-{#    Аттрибуты! #}
-{#    {% for attr in product.attributes %}#}
     <script>
+        function change_button() {
+            $('.btn').replaceWith(`<a href="/basket/">
+                                    <button type="button" class="btn btn-outline-secondary">Перейти в корзину</button>
+                                   </a>`);
+        }
         $('.img-choice').first().addClass('active');
         const activeImage = $('.img-fluid');
         $('.img-choices-container').mouseover(function (e) {
@@ -50,5 +73,17 @@
                 activeImage.attr('src', target.attr('src'))
             }
         });
+        $('.form-group').submit(function (event) {
+            event.preventDefault();
+            let slug = '{{ product.slug }}';
+            $.post(`/product/${slug}/`, $(this).serialize(), function () {
+                let counter = $('.counter');
+                let num = counter.text();
+                if (!num)
+                    counter.text(1);
+                else
+                    counter.text(parseInt(num) + 1);
+                change_button();
+            });});
     </script>
 {% endblock %}

@@ -3,21 +3,33 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>F&N</title>
+    <title>F&amp;N</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/shop.css' %}">
     <script src="https://kit.fontawesome.com/81374fec9e.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+{#    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>#}
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <style>
+        .counter {
+            background-color: #999;
+            color: #fff;
+        }
+
+        .bag:hover .counter {
+            background-color: #fff;
+            color: #000;
+        }
+    </style>
     <nav class="site-header sticky-top py-1">
         <div class="container d-flex flex-md-row justify-content-between">
             <a class="py-2"></a>
             <a class="py-2" href="/">F&amp;N</a>
-            <a class="py-2" href="/basket/">
+            <a class="py-2 position-relative bag" href="/basket/">
                 <i class="fas fa-shopping-bag fa-lg"></i>
+                <div class="badge counter">{{ bag_quantity }}</div>
             </a>
         </div>
     </nav>
