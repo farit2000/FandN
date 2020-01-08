@@ -64,7 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'shop.views.context_processors.get_bag_quantity',
+                'shop.views.context_processors.get_bag',
             ],
         },
     },

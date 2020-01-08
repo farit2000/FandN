@@ -14,15 +14,17 @@ class Cart:
         product_id = str(product.id)
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': quantity,
-                                     'price': str(product.price)}
+                                     'name': product.name,
+                                     'price': str(product.price),
+                                     'main_image': str(product.images.first().image)}
         else:
-            self.cart[product_id]['quantity'] += quantity
+            prev_quantity = self.cart[product_id]['quantity']
+            self.cart[product_id]['quantity'] = str(int(prev_quantity) + int(quantity))
         self.save()
 
     def save(self):
         self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True
-        # self.session.save()
 
     def remove(self, product):
         product_id = str(product.id)
@@ -45,7 +47,7 @@ class Cart:
             yield item
 
     def __len__(self):
-        return sum(item['quantity'] for item in self.cart.values())
+        return sum(int(item['quantity']) for item in self.cart.values())
 
     def get_total_price(self):
         return sum(int(item['price']) * item['quantity'] for item in

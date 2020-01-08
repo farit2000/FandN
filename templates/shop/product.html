@@ -63,6 +63,13 @@
                                     <button type="button" class="btn btn-outline-secondary">Перейти в корзину</button>
                                    </a>`);
         }
+
+        function update_header() {
+            $.get(window.location.pathname, function (data) {
+                $('.dropdown').replaceWith($(data).find('.dropdown')[0]);
+            });
+        }
+
         $('.img-choice').first().addClass('active');
         const activeImage = $('.img-fluid');
         $('.img-choices-container').mouseover(function (e) {
@@ -73,17 +80,14 @@
                 activeImage.attr('src', target.attr('src'))
             }
         });
+
         $('.form-group').submit(function (event) {
             event.preventDefault();
             let slug = '{{ product.slug }}';
             $.post(`/product/${slug}/`, $(this).serialize(), function () {
-                let counter = $('.counter');
-                let num = counter.text();
-                if (!num)
-                    counter.text(1);
-                else
-                    counter.text(parseInt(num) + 1);
+                update_header();
                 change_button();
-            });});
+            });
+        });
     </script>
 {% endblock %}

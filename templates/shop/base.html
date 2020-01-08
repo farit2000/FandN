@@ -1,4 +1,5 @@
 {% load static %}
+{% load my_tags %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,9 +7,9 @@
     <title>F&amp;N</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/shop.css' %}">
+    <script src="https://unpkg.com/popper.js"></script>
     <script src="https://kit.fontawesome.com/81374fec9e.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-{#    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>#}
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -18,23 +19,53 @@
             color: #fff;
         }
 
+        .bag {
+            color: #999;
+            transition: ease-in-out color .15s;
+        }
+
+        .bag:hover {
+            color: #fff;
+        }
+
         .bag:hover .counter {
             background-color: #fff;
             color: #000;
+        }
+
+        .quantity {
+            position: absolute;
+            bottom: 2px;
+            left: 2px;
         }
     </style>
     <nav class="site-header sticky-top py-1">
         <div class="container d-flex flex-md-row justify-content-between">
             <a class="py-2"></a>
             <a class="py-2" href="/">F&amp;N</a>
-            <a class="py-2 position-relative bag" href="/basket/">
-                <i class="fas fa-shopping-bag fa-lg"></i>
-                <div class="badge counter">{{ bag_quantity }}</div>
-            </a>
+            <div class="dropdown py-2">
+                <div class="bag" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-shopping-bag fa-lg "></i>
+                    <div class="badge counter">{{ bag_quantity }}</div>
+                </div>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for k, v in cart.items %}
+                        <a class="d-flex my-md-3 pl-md-3 justify-content-between text-reset" href="/product/{% get_slug_by_id k %}/" style="opacity: 1 !important;">
+                            <div class="position-relative">
+                                <img src="{{ v|get_item:'main_image' }}" alt="product" class="p-2" style="width: 70px; height: 70px;">
+                                <div class="badge counter quantity">{{ v|get_item:'quantity' }}</div>
+                            </div>
+                            <p class="pt-2">{{ v|get_item:'name' }}</p>
+                        </a>
+                    {% endfor %}
+                    <a class="dropdown-item" href="/basket/">
+                       <button class="btn btn-outline-secondary" type="button">Перейти в корзину</button>
+                    </a>
+                </div>
+            </div>
         </div>
     </nav>
 
-{#content#}
     {% block content %}
     {% endblock %}
 
