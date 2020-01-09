@@ -1,5 +1,5 @@
 from django.conf import settings
-from shop.models import Product
+from shop.models import Product, Image
 
 
 class Cart:
@@ -22,6 +22,11 @@ class Cart:
             self.cart[product_id]['quantity'] = str(int(prev_quantity) + int(quantity))
         self.save()
 
+    def reduce(self, product):
+        product_id = str(product.id)
+        self.cart[product_id]['quantity'] -= 1
+        self.save()
+
     def save(self):
         self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True
@@ -39,7 +44,13 @@ class Cart:
         product_ids = self.cart.keys()
         products = Product.objects.filter(id__in=product_ids)
         for product in products:
-            self.cart[str(product.id)]['product'] = product
+            self.cart[str(product.id)]['id'] = product.slug
+            self.cart[str(product.id)]['name'] = product.name
+            self.cart[str(product.id)]['price'] = product.price
+            self.cart[str(product.id)]['description'] = product.description
+            self.cart[str(product.id)]['images'] = Image.objects.filter(product_id=product.id).first().image.path
+            self.cart[str(product.id)]['attributes'] = product.attributes
+            self.cart[str(product.id)]['category'] = product.category
 
         for item in self.cart.values():
             item['price'] = int(item['price'])
