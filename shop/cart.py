@@ -13,13 +13,13 @@ class Cart:
     def add(self, product, quantity):
         product_id = str(product.id)
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': quantity,
+            self.cart[product_id] = {'quantity': int(quantity),
                                      'name': product.name,
-                                     'price': str(product.price),
+                                     'price': int(product.price),
                                      'main_image': str(product.images.first().image)}
         else:
             prev_quantity = self.cart[product_id]['quantity']
-            self.cart[product_id]['quantity'] = str(int(prev_quantity) + int(quantity))
+            self.cart[product_id]['quantity'] = int(prev_quantity) + int(quantity)
         self.save()
 
     def reduce(self, product):

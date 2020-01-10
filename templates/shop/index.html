@@ -11,32 +11,6 @@
         <div class="product-device shadow-sm d-none d-md-block"></div>
         <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
     </div>
-{#    Поместить это в shop.css! #}
-    <style>
-        .my-bg:nth-of-type(2n+1) {
-            background-color: #343a40;
-            color: #fff;
-        }
-
-        .my-bg:nth-of-type(2n) {
-                background-color: #f8f9fa;
-                color: #343a40;
-        }
-
-        @media screen and (min-width: 768px){
-            .color-shift:nth-of-type(2n) .my-bg:nth-of-type(2n+1),
-            .color-shift:nth-of-type(2n+1) .my-bg:nth-of-type(2n) {
-                background-color: #343a40;
-                color: #fff;
-            }
-
-            .color-shift:nth-of-type(2n) .my-bg:nth-of-type(2n),
-            .color-shift:nth-of-type(2n+1) .my-bg:nth-of-type(2n+1) {
-                background-color: #f8f9fa;
-                color: #343a40;
-            }
-        }
-    </style>
     {% for product in products %}
         {% if forloop.counter0|divisibleby:2 %}
             <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 color-shift">
