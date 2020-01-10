@@ -10,7 +10,7 @@ class Cart:
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
 
-    def add(self, product, quantity):
+    def add(self, product, quantity=1):
         product_id = str(product.id)
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': quantity,
@@ -48,20 +48,20 @@ class Cart:
             self.cart[str(product.id)]['name'] = product.name
             self.cart[str(product.id)]['price'] = product.price
             self.cart[str(product.id)]['description'] = product.description
-            self.cart[str(product.id)]['images'] = Image.objects.filter(product_id=product.id).first().image.path
+            self.cart[str(product.id)]['image'] = str(Image.objects.filter(product_id=product.id).first().image)
             self.cart[str(product.id)]['attributes'] = product.attributes
             self.cart[str(product.id)]['category'] = product.category
 
         for item in self.cart.values():
             item['price'] = int(item['price'])
-            item['total_price'] = item['price'] * item['quantity']
+            item['total_price'] = int(item['price']) * int(item['quantity'])
             yield item
 
     def __len__(self):
         return sum(int(item['quantity']) for item in self.cart.values())
 
     def get_total_price(self):
-        return sum(int(item['price']) * item['quantity'] for item in
+        return sum(int(item['price']) * int(item['quantity']) for item in
                    self.cart.values())
 
     def clear(self):

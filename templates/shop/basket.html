@@ -69,7 +69,7 @@
                   <tr id="block{{ item.id }}">
                   <th scope="row">
                     <div class="p-2">
-                        <img src='{{ item.images }}' alt="" width="70" class="img-fluid rounded shadow-sm">
+                        <img src='/{{ item.image }}' alt="" width="70" class="img-fluid rounded shadow-sm">
                       <div class="ml-3 d-inline-block align-middle">
                         <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">{{ item.name }}</a></h5><span class="text-muted font-weight-normal font-italic">Категория: {{ item.category }}</span>
                       </div>
@@ -85,7 +85,7 @@
                     </div>
                       </strong>
                   </td>
-                  <td class="align-middle"><a href="#" class="text-dark" onclick="remove_element('{{ item.id }}', {{ item.price }}, {{ item.quantity }})">remove</a></td>
+                  <td class="align-middle"><a href="#" class="text-dark" onclick="remove_element('{{ item.id }}', {{ item.price }}, {{ item.quantity }})"><i class="fas fa-trash-alt fa-1x"></i></a></td>
                 </tr>
               {% endfor %}
               </tbody>
@@ -141,12 +141,12 @@
       {
         if($("#" + clicked_id).val() > 1){
                 $("#" + clicked_id).val(parseInt($("#" + clicked_id).val()) - 1 );
-                $("#" + "price" + clicked_id).text("₽" + product_price * $("#" + clicked_id).val());
+                $("#" + "price" + clicked_id).text("₽" + parseInt(product_price) * $("#" + clicked_id).val());
                 $("#" + "total_price").text("₽" + (total_price - product_price));
                 total_price -= product_price;
                 $.ajax({
                     type: "POST",
-                    url: "/basket/",
+                    url: "/basket/#",
                     data: {
                         product_id: clicked_id,
                         action: -1
@@ -161,7 +161,7 @@
         total_price -= product_price * quantity;
         $.ajax({
             type: "POST",
-            url: "/basket/",
+            url: "/basket/#",
             data: {
                 product_id: element_id,
                 action: 0
