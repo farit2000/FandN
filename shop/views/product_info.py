@@ -10,7 +10,6 @@ class ProductInfo(View):
     def get(self, request, slug):
         product = Product.objects.get(slug=slug)
         is_activated_btn = product in Cart(request)
-        print('get')
         return render(request, 'shop/product.html',
                       context={'product': product, 'is_activated_btn': is_activated_btn})
 
@@ -19,5 +18,4 @@ class ProductInfo(View):
         product = Product.objects.get(slug=slug)
         quantity = request.POST.get('quantity')
         cart.add(product, quantity)
-        print('post')
         return HttpResponse(status=200)

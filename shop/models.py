@@ -14,6 +14,7 @@ class Client(models.Model):
         return "%s %s" % (self.first_name, self.last_name)
 
 
+# Add index to slug and remove null from attributes!
 class Product(models.Model):
     PRODUCT_CATEGORIES = [
         ('VA', 'VASE')]
