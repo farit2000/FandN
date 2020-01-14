@@ -22,9 +22,9 @@ class Cart:
             self.cart[product_id]['quantity'] = int(prev_quantity) + int(quantity)
         self.save()
 
-    def reduce(self, product):
+    def reduce(self, product, quantity=1):
         product_id = str(product.id)
-        self.cart[product_id]['quantity'] -= 1
+        self.cart[product_id]['quantity'] -= quantity
         self.save()
 
     def save(self):
@@ -44,7 +44,7 @@ class Cart:
         product_ids = self.cart.keys()
         products = Product.objects.filter(id__in=product_ids)
         for product in products:
-            self.cart[str(product.id)]['id'] = product.slug
+            self.cart[str(product.id)]['id'] = product.id
             self.cart[str(product.id)]['name'] = product.name
             self.cart[str(product.id)]['price'] = product.price
             self.cart[str(product.id)]['description'] = product.description

@@ -2,172 +2,72 @@
 
 {% block content %}
     <div class="pb-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-              <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col" class="border-0 bg-light">
-                    <div class="p-2 px-3 text-uppercase">Продукт</div>
-                  </th>
-                  <th scope="col" class="border-0 bg-light">
-                    <div class="py-2 text-uppercase">Цена</div>
-                  </th>
-                  <th scope="col" class="border-0 bg-light">
-                    <div class="py-2 text-uppercase">Количество</div>
-                  </th>
-                  <th scope="col" class="border-0 bg-light">
-                    <div class="py-2 text-uppercase">Удалить</div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-{#                <tr>#}
-{#                  <th scope="row" class="border-0">#}
-{#                    <div class="p-2">#}
-{#                      <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">#}
-{#                      <div class="ml-3 d-inline-block align-middle">#}
-{#                        <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">Timex Unisex Originals</a></h5><span class="text-muted font-weight-normal font-italic d-block">Category: Watches</span>#}
-{#                      </div>#}
-{#                    </div>#}
-{#                  </th>#}
-{#                  <td class="border-0 align-middle"><strong>₽79.00</strong></td>#}
-{#                  <td class="border-0 align-middle"><strong>3</strong></td>#}
-{#                  <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td>#}
-{#                </tr>#}
-{#                <tr>#}
-{#                  <th scope="row">#}
-{#                    <div class="p-2">#}
-{#                      <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-3_cexmhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">#}
-{#                      <div class="ml-3 d-inline-block align-middle">#}
-{#                        <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">Lumix camera lense</a></h5><span class="text-muted font-weight-normal font-italic">Category: Electronics</span>#}
-{#                      </div>#}
-{#                    </div>#}
-{#                  </th>#}
-{#                  <td class="align-middle"><strong>₽79.00</strong></td>#}
-{#                  <td class="align-middle"><strong>3</strong></td>#}
-{#                  <td class="align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a>#}
-{#                  </td>#}
-{#                </tr>#}
-{#                <tr>#}
-{#                  <th scope="row">#}
-{#                    <div class="p-2">#}
-{#                      <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-2_qxjis2.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">#}
-{#                      <div class="ml-3 d-inline-block align-middle">#}
-{#                        <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">Gray Nike running shoe</a></h5><span class="text-muted font-weight-normal font-italic">Category: Fashion</span>#}
-{#                      </div>#}
-{#                    </div>#}
-{#                    </th>#}
-{#                    <td class="align-middle"><strong>₽79.00</strong></td>#}
-{#                    <td class="align-middle"><strong>3</strong></td>#}
-{#                    <td class="align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a>#}
-{#                    </td>#}
-{#                </tr>#}
-              {% for item in cart %}
-                  <tr id="block{{ item.id }}">
-                  <th scope="row">
-                    <div class="p-2">
-                        <img src='/{{ item.image }}' alt="" width="70" class="img-fluid rounded shadow-sm">
-                      <div class="ml-3 d-inline-block align-middle">
-                        <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">{{ item.name }}</a></h5><span class="text-muted font-weight-normal font-italic">Категория: {{ item.category }}</span>
-                      </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="border-0 bg-light">
+                                        <div class="p-2 px-3 text-uppercase">Продукт</div>
+                                    </th>
+                                    <th scope="col" class="border-0 bg-light">
+                                        <div class="py-2 text-uppercase">Цена</div>
+                                    </th>
+                                    <th scope="col" class="border-0 bg-light">
+                                        <div class="py-2 text-uppercase">Количество</div>
+                                    </th>
+                                    <th scope="col" class="border-0 bg-light">
+                                        <div class="py-2 text-uppercase">Удалить</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in cart %}
+                            <tr id="block">
+                                <th scope="row">
+                                <div class="p-2">
+                                    <img src='/{{ item.image }}' alt="" width="70" class="img-fluid rounded shadow-sm">
+                                    <div class="ml-3 d-inline-block align-middle">
+                                        <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">{{ item.name }}</a></h5><span class="text-muted font-weight-normal font-italic">Категория: {{ item.category }}</span>
+                                    </div>
+                                </div>
+                                </th>
+                                <td class="align-middle font-weight currency" id="itemTotalPrice">{{ item.total_price }}</td>
+                                <td class="align-middle">
+                                    <div class="qty mt-5 font-weight">
+                                        <input type="number" class="count" id="{{ item.id }}" name="qty" value="{{ item.quantity }}">
+                                        <input type="hidden" value="{{ item.price }}" name="price">
+                                        <input type="hidden" value="{{ item.id }}" name="id">
+                                  </div>
+                                </td>
+                                <td class="align-middle">
+                                    <i class="fas fa-trash-alt fa-1x" id="trash"></i>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    <div class="row justify-content-md-center py-5 p-4 bg-white">
+                        <div class="col-md-auto">
+                            <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Полная стоимость </div>
+                            <div class="p-4">
+                                <p class="font-italic mb-4">Полная стоимость указывается без учета доставки.</p>
+                                <ul class="list-unstyled mb-4">
+                                    <li class="d-flex justify-content-between py-3 border-bottom">
+                                        <strong class="text-muted">Сумма</strong>
+                                        <h5 class="font-weight-bold currency" id="generalTotalPrice">{{ total_price }}</h5>
+                                  </li>
+                                </ul>
+                                <a onclick="is_basket_empty()" class="btn btn-dark rounded-pill py-2 btn-block text-light">Сделать заказ</a>
+                            </div>
+                        </div>
                     </div>
-                  </th>
-                  <td class="align-middle"><strong id="price{{ item.id }}">₽{{ item.total_price }}</strong></td>
-                  <td class="align-middle">
-                      <strong>
-                           <div class="qty mt-5">
-                        <span class="minus bg-dark" onClick="reply_click_minus('{{ item.id }}', {{ item.price }}, {{ item.quantity }})">-</span>
-                        <input readonly="readonly" type="number" class="count" id="{{ item.id }}" name="qty" value="{{ item.quantity }}">
-                        <span class="plus bg-dark" onClick="reply_click_plus('{{ item.id }}', {{ item.price }}, {{ item.quantity }})">+</span>
-                    </div>
-                      </strong>
-                  </td>
-                  <td class="align-middle"><a href="#" class="text-dark" onclick="remove_element('{{ item.id }}', {{ item.price }}, {{ item.quantity }})"><i class="fas fa-trash-alt fa-1x"></i></a></td>
-                </tr>
-              {% endfor %}
-              </tbody>
-            </table>
-          </div>
-          <div class="row justify-content-md-center py-5 p-4 bg-white">
-        <div class="col-md-auto">
-          <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Полная стоимость </div>
-          <div class="p-4">
-            <p class="font-italic mb-4">Полная стоимость указывается без учета доставки.</p>
-            <ul class="list-unstyled mb-4">
-              <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Сумма</strong>
-                <h5 class="font-weight-bold" id="total_price">₽{{ total_price }}</h5>
-              </li>
-            </ul><a onclick="is_basket_empty()" class="btn btn-dark rounded-pill py-2 btn-block text-light">Сделать заказ</a>
-          </div>
+                 </div>
+             </div>
         </div>
-      </div>
-        </div>
-      </div>
     </div>
-    </div>
-    <script type="text/javascript">
-        var total_price = {{ total_price }};
-        function is_basket_empty() {
-            if(total_price > 0){
-                location.href = '/order/';
-            }
-            else {
-                return false;
-            }
-        }
-      function reply_click_plus(clicked_id, product_price, quantity)
-      {
-                $("#" + clicked_id).val(parseInt($("#" + clicked_id).val()) + 1 );
-                $("#" + "price" + clicked_id).text("₽" + product_price * $("#" + clicked_id).val());
-                $("#" + "total_price").text("₽" + (total_price + product_price));
-                total_price += product_price;
-                $.ajax({
-                    type: "POST",
-                    url: "/basket/#",
-                    data: {
-                        product_id: clicked_id,
-                        action: 1
-                    },
-                    async: false,
-                    {#success: function (msg) {#}
-                    {#    alert("Прибыли данные: " + msg);}#}
-
-                });
-      }
-      function reply_click_minus(clicked_id, product_price, quantity)
-      {
-        if($("#" + clicked_id).val() > 1){
-                $("#" + clicked_id).val(parseInt($("#" + clicked_id).val()) - 1 );
-                $("#" + "price" + clicked_id).text("₽" + parseInt(product_price) * $("#" + clicked_id).val());
-                $("#" + "total_price").text("₽" + (total_price - product_price));
-                total_price -= product_price;
-                $.ajax({
-                    type: "POST",
-                    url: "/basket/#",
-                    data: {
-                        product_id: clicked_id,
-                        action: -1
-                    },
-                    async: false,
-                });
-        }
-      }
-      function remove_element(element_id, product_price, quantity) {
-        $("#block" + element_id).remove();
-        $("#" + "total_price").text("₽" + (total_price - product_price * quantity));
-        total_price -= product_price * quantity;
-        $.ajax({
-            type: "POST",
-            url: "/basket/#",
-            data: {
-                product_id: element_id,
-                action: 0
-            },
-            async: false,
-        });
-      }
-    </script>
+    <script type="module" src="/shop/static/js/basket.js"></script>
 {% endblock %}

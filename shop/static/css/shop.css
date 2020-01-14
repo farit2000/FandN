@@ -8,10 +8,12 @@
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
 }
+
 .site-header a {
   color: #999;
   transition: ease-in-out color .15s;
 }
+
 .site-header a:hover {
   color: #fff;
   text-decoration: none;
@@ -21,6 +23,7 @@
   -ms-flex: 1;
   flex: 1;
 }
+
 @media (min-width: 768px) {
   .flex-md-equal > * {
     -ms-flex: 1;
@@ -29,6 +32,10 @@
 }
 
 .overflow-hidden { overflow: hidden; }
+
+.currency::after {
+    content: ' руб.';
+}
 
 /* BAG */
 .counter {
@@ -137,23 +144,8 @@
 }
 
 /* Prevent text selection */
-span{
+span {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-}
-
-input{
-    border: 0;
-    width: 2%;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-input:disabled{
-    background-color:white;
 }
