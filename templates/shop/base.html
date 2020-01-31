@@ -27,10 +27,12 @@
                     {% for k, v in cart.items %}
                         <a class="dropdown-item d-flex text-reset" href="/product/{% get_slug_by_id k %}/" style="opacity: 1 !important;">
                             <div class="position-relative">
-                                <img src="/{{ v|get_item:'main_image' }}" alt="product" class="p-2" style="width: 70px; height: 70px;">
+                                <div class="p-3">
+                                    <img src="/{{ v|get_item:'main_image' }}" alt="product" class="rounded" style="width: 70px; height: 70px;">
+                                </div>
                                 <div class="badge counter quantity">{{ v|get_item:'quantity' }}</div>
                             </div>
-                            <p class="pt-2">{{ v|get_item:'name' }}</p>
+                            <p class="pt-3">{{ v|get_item:'name' }}</p>
                         </a>
                     {% empty %}
                         <p class="text-center mt-2 mb-3">Ваша корзина пуста</p>
