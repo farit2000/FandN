@@ -46,6 +46,7 @@ class Cart:
         for product in products:
             self.cart[str(product.id)]['id'] = product.id
             self.cart[str(product.id)]['name'] = product.name
+            self.cart[str(product.id)]['slug'] = product.slug
             self.cart[str(product.id)]['price'] = product.price
             self.cart[str(product.id)]['description'] = product.description
             self.cart[str(product.id)]['image'] = str(Image.objects.filter(product_id=product.id).first().image)

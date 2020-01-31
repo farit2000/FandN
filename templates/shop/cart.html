@@ -1,0 +1,30 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<style>
+    .product-link:hover {
+        text-decoration: none;
+        color: rgba(20, 23, 25, 0.5);
+        transition: color .12s ease-out;
+    }
+
+    .product-link {
+        color: #343a40;
+    }
+</style>
+<div class="container mx-auto" style="font-size: 1.2rem;">
+    {% for product in cart %}
+    <div class="row">
+        <div class="col text-center">
+            <img src="/{{ product.image }}" alt="{{ product.name }}" class="" width="70">
+        </div>
+        <div class="row col-8 text-center">
+            <a href="/product/{{ product.slug }}/" class="col-sm-4 product-link align-self-center">{{ product.name }}</a>
+            <p class="currency col-sm-4 align-self-center mb-0">{{ product.total_price }}</p>
+            <input type="number" class="col-sm-4 form-control w-25 mx-auto align-self-center" min="1" value="1" step="1">
+        </div>
+        <i class="fas fa-trash-alt fa-1x col-1 align-self-center"></i>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

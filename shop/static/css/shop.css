@@ -57,7 +57,7 @@
     color: #000;
 }
 
-.quantity {
+.dropdown-menu .quantity {
     position: absolute;
     bottom: 2px;
     left: 2px;

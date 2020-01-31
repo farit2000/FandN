@@ -4,43 +4,30 @@
     <div class="pb-5">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+                <div class="col-lg-12 p-5 mb-5">
                     <div class="table-responsive">
                         <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="border-0 bg-light">
-                                        <div class="p-2 px-3 text-uppercase">Продукт</div>
-                                    </th>
-                                    <th scope="col" class="border-0 bg-light">
-                                        <div class="py-2 text-uppercase">Цена</div>
-                                    </th>
-                                    <th scope="col" class="border-0 bg-light">
-                                        <div class="py-2 text-uppercase">Количество</div>
-                                    </th>
-                                    <th scope="col" class="border-0 bg-light">
-                                        <div class="py-2 text-uppercase">Удалить</div>
-                                    </th>
-                                </tr>
-                            </thead>
                             <tbody>
                             {% for item in cart %}
                             <tr id="block">
-                                <th scope="row">
-                                <div class="p-2">
-                                    <img src='/{{ item.image }}' alt="" width="70" class="img-fluid rounded shadow-sm">
-                                    <div class="ml-3 d-inline-block align-middle">
-                                        <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">{{ item.name }}</a></h5><span class="text-muted font-weight-normal font-italic">Категория: {{ item.category }}</span>
+                                <td>
+                                    <div class="p-2">
+                                        <img src='/{{ item.image }}' alt="" width="70" class="img-fluid rounded shadow-sm">
+                                        <div class="ml-3 d-inline-block align-middle">
+                                            <h5 class="mb-0">
+                                                <a href="#" class="text-dark d-inline-block">{{ item.name }}</a>
+                                            </h5>
+                                            <span class="text-muted font-weight-normal font-italic">Категория: {{ item.category }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                </th>
+                                </td>
                                 <td class="align-middle font-weight currency" id="itemTotalPrice">{{ item.total_price }}</td>
                                 <td class="align-middle">
-                                    <div class="qty mt-5 font-weight">
+                                    <div class="qty font-weight">
                                         <input type="number" class="count" id="{{ item.id }}" name="qty" value="{{ item.quantity }}">
                                         <input type="hidden" value="{{ item.price }}" name="price">
                                         <input type="hidden" value="{{ item.id }}" name="id">
-                                  </div>
+                                    </div>
                                 </td>
                                 <td class="align-middle">
                                     <i class="fas fa-trash-alt fa-1x" id="trash"></i>

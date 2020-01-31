@@ -57,19 +57,63 @@ function removeBlock(block, target, id, quantity, price) {
     $.post('/basket/', { product_id: id, action: 0}, update_header);
 }
 
-$('#block').bind('change click', function (e) {
+let fnDelay = (function() {
+    let timer = 0;
+    return function(callback, ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callback, ms);
+    };
+})();
+
+function blockHandler(e) {
     // Получаем все данные о товаре
-    let block = $(e.currentTarget);
     let target = $(e.target);
+    let block = target.parents('#block');
     let price = parseInt(block.find('input[name="price"]').val());
-    let quantity = parseInt(block.find('input[name="qty"]').val());
+    let quantity = parseInt(target.val());
     let id = block.find('input[name="id"]').val();
     // Если изменился input
     if (target.attr('name') === 'qty' && e.type === 'change') {
+        console.log('if recount');
         recountPrices(block, target, id, quantity, price);
     }
     // Если кликнули по корзине
     else if (target.attr('id') === 'trash' && e.type === 'click') {
         removeBlock(block, target, id, quantity, price);
     }
+}
+
+// $('#block').bind('change click', function (e) {
+//     fnDelay(blockHandler.bind(this, e), 200);
+//     // Получаем все данные о товаре
+//     console.log(e);
+//     // let block = $(e.currentTarget);
+//     // let target = $(e.target);
+//     // let price = parseInt(block.find('input[name="price"]').val());
+//     // let quantity = parseInt(block.find('input[name="qty"]').val());
+//     // let id = block.find('input[name="id"]').val();
+//     // // Если изменился input
+//     // if (target.attr('name') === 'qty' && e.type === 'change') {
+//     //     console.log('if recount');
+//     //     recountPrices(block, target, id, quantity, price);
+//     // }
+//     // // Если кликнули по корзине
+//     // else if (target.attr('id') === 'trash' && e.type === 'click') {
+//     //     removeBlock(block, target, id, quantity, price);
+//     // }
+// });
+// console.log($('#block #trash'));
+// console.log($('#block input[name="qty"]'));
+let blocks = $('#block');
+console.log(blocks);
+console.log($('#block').find('#trash'));
+console.log($('#block').find('input[name="qty"]'));
+blocks.find('#trash').bind('click',function (e) {
+    console.log(e);
+    fnDelay(blockHandler.bind(this, e), 500);
+});
+
+blocks.find('input[name="qty"]').bind('change',function (e) {
+     console.log(e);
+    fnDelay(blockHandler.bind(this, e), 500);
 });
