@@ -40,7 +40,7 @@ function trackQuntityInput(e) {
     let target = $(e.target);
     if (target.val() < 1) {
         isNegativeQuantity = true;
-        target.val('1');
+        target.val(target.data('oldVal'));
     }
 }
 
