@@ -1,98 +1,67 @@
 {% extends 'shop/base.html' %}
 
 {% block content %}
-<div class="pb-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
-          <div class="table-responsive">
-            <table class="table">
-            <thead>
-                <tr>
-                  <th scope="col" class="border-0 bg-light">
-                    <div class="p-2 px-3 text-uppercase">Продукт</div>
-                  </th>
-                  <th scope="col" class="border-0 bg-light">
-                    <div class="py-2 text-uppercase">Цена</div>
-                  </th>
-                  <th scope="col" class="border-0 bg-light">
-                    <div class="py-2 text-uppercase">Количество</div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-    {% for item in cart %}
-                  <tr id="block{{ item.id }}">
-                  <th scope="row">
-                    <div class="p-2">
-                        <img src='/{{ item.image }}' alt="" width="70" class="img-fluid rounded shadow-sm">
-                      <div class="ml-3 d-inline-block align-middle">
-                        <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">{{ item.name }}</a></h5><span class="text-muted font-weight-normal font-italic">Категория: {{ item.category }}</span>
-                      </div>
+    <div class="container border rounded-0 shadow-sm">
+        <div class="row d-none d-sm-none d-md-none d-lg-flex d-xl-flex border-bottom" style="margin: 20px;margin-bottom: 0px;">
+            <div class="col-lg-6 d-lg-flex justify-content-lg-center align-items-lg-center border-0 bg-light" style="padding: 10px;">
+                <h6 class="text-uppercase d-lg-flex justify-content-lg-center p-2 px-3"><strong>Продукт</strong></h6>
+            </div>
+            <div class="col-lg-3 d-lg-flex flex-grow-0 flex-shrink-0 flex-wrap justify-content-lg-center align-items-lg-center border-0 bg-light">
+                <h6 class="text-uppercase d-lg-flex justify-content-lg-center align-items-lg-center p-2 px-3"><strong>Цена</strong></h6>
+            </div>
+            <div class="col-lg-3 d-lg-flex justify-content-lg-center border-0 bg-light">
+                <h6 class="text-uppercase d-lg-flex justify-content-lg-center align-items-lg-center p-2 px-3"><strong>Количество</strong></h6>
+            </div>
+        </div>
+        {% for item in cart %}
+            <div class="row border-bottom" style="padding: 10px;background-color: #ffffff;margin: 20px;margin-bottom: 0px;">
+                <div class="col-3 col-lg-2 d-flex justify-content-center align-items-center"><img class="rounded d-flex" src="/{{ item.image }}" style="width: 70px;"></div>
+                <div class="col-7 col-lg-10 align-self-center">
+                    <div class="row">
+                        <div class="col-lg-5 d-lg-flex justify-content-lg-start align-items-lg-center">
+                            <h5>{{ item.name }}</h5>
+                        </div>
+                        <div class="col-lg-4 d-flex d-lg-flex align-items-center align-content-center align-self-center justify-content-lg-center align-items-lg-center"><span class="d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center" style="margin-right: 40px;">{{ item.total_price }} руб.</span></div>
+                        <div class="col-lg-3">
+                            <div class="row">
+                                <div class="col d-flex d-lg-flex d-xl-flex justify-content-start align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center" style="padding-left: 0px;"><strong class="d-flex align-items-center" style="margin-left: 15px;margin-right: 20px;">{{ item.quantity }} шт.</strong></div>
+                            </div>
+                            <div class="row">
+                                <div class="col d-flex d-lg-flex d-xl-flex align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center"><strong class="d-lg-flex justify-content-lg-center align-items-lg-center" style="margin-left: 0px;margin-right: 20px;"><em>{{ item.price }} руб/шт.</em></strong></div>
+                            </div>
+                        </div>
                     </div>
-                  </th>
-                  <td class="align-middle"><strong id="price{{ item.id }}">₽{{ item.total_price }}</strong></td>
-                  <td class="align-middle">
-                    <strong>
-                        {{ item.quantity }}
-                    </strong>
-                  </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-            </table>
-          </div>
-          <div class="row justify-content-md-center py-5 p-4 bg-white">
-          <div class="col-md-auto">
-          <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Полная стоимость </div>
-          <div class="p-4">
-            <p class="font-italic mb-4">Полная стоимость указана без учета стоимости доставки.</p>
-            <ul class="list-unstyled mb-4">
-              <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Сумма</strong>
-                <h5 class="font-weight-bold" id="total_price">₽{{ total_price }}</h5>
-              </li>
-            </ul>
-          </div>
-          <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Ваши контакты </div>
-          <div class="p-4">
-            <p class="font-italic mb-4">Заполните данные поля, чтобы мы смогли с вами связаться для уточнения деталей заказа.</p>
-            <ul class="list-unstyled mb-4">
-{#              <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>#}
-{#                <h5 class="font-weight-bold" id="total_price">₽{{ total_price }}</h5>#}
-{#              </li>#}
-              <li class="d-flex justify-content-between py-3 border-bottom">
-{#              <form>#}
-{#              {% csrf_token %}#}
-{#              <div class="row">#}
-{#                   {% for field in form %}#}
-{#                       <div class="col">#}
-{#                       {{ field }}#}
-{#                       </div>#}
-{##}
-{#                  {% endfor %}#}
-{#              </div>#}
-{#              <p><input class="btn btn-dark rounded-pill py-2 btn-block" type="submit" value="Сделать заказ"></p>#}
-{#              </form>#}
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-6">
-                <form action="." method="POST" class="form-group text-center">
-                    {{ form.as_p }}
-                    <p><input class="btn btn-dark rounded-pill py-2 btn-block" type="submit" value="Сделать заказ"></p>
-                    {% csrf_token %}
-                </form>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="row justify-content-md-center py-5 p-4 bg-white">
+            <div class="col-md-auto">
+                <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Полная стоимость </div>
+                <div class="p-4">
+                    <p class="font-italic mb-4">Полная стоимость указывается без учета доставки.</p>
+                    <ul class="list-unstyled mb-4">
+                        <li class="d-flex justify-content-between py-3 border-bottom">
+                            <strong class="text-muted">Сумма</strong>
+                            <h5 class="font-weight-bold currency" id="generalTotalPrice">{{ total_price }}</h5>
+                        </li>
+                    </ul>
+                    <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Ваши контакты </div>
+                    <p class="font-italic mb-4">Заполните данные поля, чтобы мы смогли с вами связаться для уточнения деталей заказа.</p>
+                </div>
+                <div class="row justify-content-center d-flex d-xl-flex justify-content-center align-items-center justify-content-xl-center align-items-xl-center">
+                    <div class="col-6" style="min-width: 200px;">
+                        <form action="." method="POST" class="form-group text-center">
+                            {{ form.as_p }}
+                            <p><input class="btn btn-dark rounded-pill py-2 btn-block" type="submit" value="Сделать заказ"></p>
+                            {% csrf_token %}
+                        </form>
+                    </div>
+                </div>
+                <script>
+                    import {is_basket_empty} from '/shop/static/js/basket'
+                    document.getElementById("order").addEventListener("click", is_basket_empty, false);
+                </script>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-              </li>
-            </ul>
-          </div>
-
-{#              <a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Сделать заказ</a>#}
-        </div>
-        </div>
-        </div>
-      </div>
-    </div>
-</div>
 {% endblock %}

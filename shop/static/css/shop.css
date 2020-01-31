@@ -33,9 +33,13 @@
 
 .overflow-hidden { overflow: hidden; }
 
-.currency::after {
-    content: ' руб.';
-}
+/*.currency::after {*/
+/*    content: ' руб.';*/
+/*}*/
+
+/*.price::after{*/
+/*    content: ' руб/шт.';*/
+/*}*/
 
 /* BAG */
 .counter {

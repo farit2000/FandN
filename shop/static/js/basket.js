@@ -3,14 +3,14 @@ import {update_header} from '/shop/static/js/common.js';
 
 const generalTotalPrice = $('#generalTotalPrice');
 
-function is_basket_empty() {
-    if(parseInt(generalTotalPrice.text()) > 0){
-        location.href = '/order/';
-    }
-    else {
-        return false;
-    }
-}
+// function is_basket_empty() {
+//     if(parseInt(generalTotalPrice.text()) > 0){
+//         location.href = '/order/';
+//     }
+//     else {
+//         return false;
+//     }
+// }
 
 function updateVal(jobject, obj) {
     // Предыдущее значение

@@ -15,7 +15,7 @@ def order_index(request):
                 Order.objects.create(client=client, total_price=basket.get_total_price())
                 order = Order.objects.get(client=client)
                 for item in basket.__iter__():
-                    ProductInOrder.objects.create(product=Product.objects.get(slug=item['id']), count=item['quantity'],
+                    ProductInOrder.objects.create(product=Product.objects.get(id=item['id']), count=item['quantity'],
                                                   total_price=item['price'], order=order)
                 basket.clear()
                 return render(request, 'shop/index.html', {})
