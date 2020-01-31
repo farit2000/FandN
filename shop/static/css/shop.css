@@ -37,6 +37,10 @@
     content: ' руб.';
 }
 
+.price::after{
+    content: ' руб/шт.';
+}
+
 /* BAG */
 .counter {
     background-color: #999;

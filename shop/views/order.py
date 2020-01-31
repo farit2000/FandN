@@ -15,20 +15,20 @@ def order_index(request):
                 Order.objects.create(client=client, total_price=basket.get_total_price())
                 order = Order.objects.get(client=client)
                 for item in basket.__iter__():
-                    ProductInOrder.objects.create(product=Product.objects.get(slug=item['id']), count=item['quantity'],
+                    ProductInOrder.objects.create(product=Product.objects.get(id=item['id']), count=item['quantity'],
                                                   total_price=item['price'], order=order)
                 basket.clear()
-                return render(request, 'shop/index.html', {})
+                return render(request, 'shop/success.html', {})
         else:
             client = Client.objects.get(phone=phone)
             Order.objects.create(client=client, total_price=basket.get_total_price())
             order = Order.objects.filter(client=client).order_by("-id")[0]
-            for item in basket.__iter__():
-                ProductInOrder.objects.create(product=Product.objects.get(slug=item['id']), count=item['quantity'],
+            for item in basket:
+                ProductInOrder.objects.create(product=Product.objects.get(id=item['id']), count=item['quantity'],
                                               total_price=item['price'], order=order)
             basket.clear()
-            return render(request, 'shop/index.html', {})
+            return render(request, 'shop/success.html', {})
     form = ClientForm()
-    return render(request, 'shop/order.html', {'cart': basket.__iter__(), 'total_price': basket.get_total_price,
+    return render(request, 'shop/order.html', {'basket': iter(basket), 'total_price': basket.get_total_price,
                                                'form': form})
 

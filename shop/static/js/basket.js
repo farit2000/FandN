@@ -2,59 +2,81 @@ import {update_header} from '/shop/static/js/common.js';
 
 
 const generalTotalPrice = $('#generalTotalPrice');
+const orderLink = $('#order');
+let isNegativeQuantity = false;
+chageOrderButton();
 
-function is_basket_empty() {
-    if(parseInt(generalTotalPrice.text()) > 0){
-        location.href = '/order/';
-    }
-    else {
-        return false;
-    }
-}
+// Ко всем input'ам с name=quantity записать текущее значение и добавить событие
+// изменения
+// Ко всем товарам добавить событие удаления
+$(document).ready(function () {
+    const inputs = $(":input[name='quantity']");
+    inputs.each(i => inputs.eq(i).data('oldVal', inputs.eq(i).val()));
+    inputs.bind('change', trackQuntityInput);
+    inputs.bind('change', function (e) {
+        fnDelay(recountPrices.bind(this, e), 500);
+    });
+    let commodities = $("div[id='commodity']");
+    commodities.find('i').bind('click', function (e) {
+        fnDelay(removeCommodity.bind(this, e), 500);
+    });
+});
 
 function updateVal(jobject, obj) {
     // Предыдущее значение
     let prevVal = parseInt(jobject.text());
     // Сложить obj с предыдущим значением и записать его
     jobject.text(prevVal + parseInt(obj));
+    chageOrderButton();
 }
 
-// Ко всем input'ам с name=qty записать текущее значение
-$(document).ready(function () {
-    const inputs = $(":input[name='qty']");
-    inputs.each(i => inputs.eq(i).data('oldVal', inputs.eq(i).val()));
-});
-
-function recountPrices(block, target, id, quantity, price) {
-    console.log('recount');
-    // Разница между прошлым числом и текущим
-    let delta = quantity - parseInt(target.data('oldVal'));
-    // В качестве прошлого значения поставить текущее
-    target.data('oldVal', quantity);
-    // Что послать во view
-    const toSend = {product_id: id, delta: delta, action: 1};
-    // Обновить все на бэке
-    $.post('/basket/', toSend, function () {
-        let itemTotalPrice = block.find('#itemTotalPrice');
-        update_header();
-        console.log('recount');
-        // Слагаемое
-        let summand = delta * price;
-        // Обновить общую и текущего товара суммы
-        updateVal(generalTotalPrice, summand);
-        updateVal(itemTotalPrice, summand);
-    });
+function chageOrderButton() {
+     if (parseInt(generalTotalPrice.text()) <= 0 || orderLink.hasClass('disabled')) {
+        orderLink.toggleClass('disabled');
+    }
 }
 
-function removeBlock(block, target, id, quantity, price) {
+function trackQuntityInput(e) {
+    let target = $(e.target);
+    if (target.val() < 1) {
+        isNegativeQuantity = true;
+        target.val('1');
+    }
+}
+
+function recountPrices(e) {
+    let info = getAllData(e);
+    if (!isNegativeQuantity) {
+        // Разница между прошлым числом и текущим
+        let delta = info.quantity - parseInt(info.target.data('oldVal'));
+        // В качестве прошлого значения поставить текущее
+        info.target.data('oldVal', info.quantity);
+        // Что послать во view
+        const toSend = {product_id: info.id, delta: delta, action: 1};
+        // Обновить все на бэке
+        $.post('/basket/', toSend, function () {
+            let itemTotalPrice = info.commodity.find('#itemTotalPrice');
+            update_header();
+            // Слагаемое
+            let summand = delta * info.price;
+            // Обновить общую и текущего товара суммы
+            updateVal(generalTotalPrice, summand);
+            updateVal(itemTotalPrice, summand);
+        });
+    }
+    isNegativeQuantity = false;
+}
+
+function removeCommodity(e) {
+    let info = getAllData(e);
     // Удалить блок
-    block.remove();
+    info.commodity.remove();
     // Вычесть его общую
-    let summand = -quantity * price;
+    let summand = -info.quantity * info.price;
     // Обновить общую сумму
     updateVal(generalTotalPrice, summand);
     // Обновить все на бэке
-    $.post('/basket/', { product_id: id, action: 0}, update_header);
+    $.post('/basket/', { product_id: info.id, action: 0}, update_header);
 }
 
 let fnDelay = (function() {
@@ -65,55 +87,11 @@ let fnDelay = (function() {
     };
 })();
 
-function blockHandler(e) {
-    // Получаем все данные о товаре
+function getAllData(e) {
     let target = $(e.target);
-    let block = target.parents('#block');
-    let price = parseInt(block.find('input[name="price"]').val());
-    let quantity = parseInt(target.val());
-    let id = block.find('input[name="id"]').val();
-    // Если изменился input
-    if (target.attr('name') === 'qty' && e.type === 'change') {
-        console.log('if recount');
-        recountPrices(block, target, id, quantity, price);
-    }
-    // Если кликнули по корзине
-    else if (target.attr('id') === 'trash' && e.type === 'click') {
-        removeBlock(block, target, id, quantity, price);
-    }
+    let commodity = target.parents('#commodity');
+    let price = parseInt(commodity.data('price'));
+    let id = commodity.data('id');
+    let quantity = parseInt(commodity.find("input[name='quantity']").val());
+    return {target: target, commodity: commodity, price: price, id: id, quantity: quantity};
 }
-
-// $('#block').bind('change click', function (e) {
-//     fnDelay(blockHandler.bind(this, e), 200);
-//     // Получаем все данные о товаре
-//     console.log(e);
-//     // let block = $(e.currentTarget);
-//     // let target = $(e.target);
-//     // let price = parseInt(block.find('input[name="price"]').val());
-//     // let quantity = parseInt(block.find('input[name="qty"]').val());
-//     // let id = block.find('input[name="id"]').val();
-//     // // Если изменился input
-//     // if (target.attr('name') === 'qty' && e.type === 'change') {
-//     //     console.log('if recount');
-//     //     recountPrices(block, target, id, quantity, price);
-//     // }
-//     // // Если кликнули по корзине
-//     // else if (target.attr('id') === 'trash' && e.type === 'click') {
-//     //     removeBlock(block, target, id, quantity, price);
-//     // }
-// });
-// console.log($('#block #trash'));
-// console.log($('#block input[name="qty"]'));
-let blocks = $('#block');
-console.log(blocks);
-console.log($('#block').find('#trash'));
-console.log($('#block').find('input[name="qty"]'));
-blocks.find('#trash').bind('click',function (e) {
-    console.log(e);
-    fnDelay(blockHandler.bind(this, e), 500);
-});
-
-blocks.find('input[name="qty"]').bind('change',function (e) {
-     console.log(e);
-    fnDelay(blockHandler.bind(this, e), 500);
-});
