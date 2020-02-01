@@ -17,18 +17,23 @@ class ClientForm(forms.ModelForm):
             'placeholder': 'Фамилия'
         }
     ), label='', required=True)
-    email = forms.EmailField(widget=forms.TextInput
+    email = forms.EmailField(widget=forms.EmailInput
         (
         attrs={
             'class': 'form-control',
             'placeholder': 'Email'
         }
     ), label='', required=True)
-    phone = forms.CharField(widget=forms.TextInput
+    phone = forms.CharField(widget=forms.NumberInput
         (
         attrs={
             'class': 'form-control',
-            'placeholder': 'Телефон'
+            'placeholder': 'Телефон',
+            'type': 'tel',
+            'inputmode': 'tel',
+            'minlength': '11',
+            'maxlength': '12',
+            'pattern': '^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$',
         }
     ), label='', required=True)
 
