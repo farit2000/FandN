@@ -24,18 +24,18 @@
                             <div class="col-lg-6 d-lg-flex justify-content-lg-center align-items-lg-center">
                                 <h5>{{ item.name }}</h5>
                             </div>
-                            <div class="col-lg-3 d-flex d-lg-flex align-items-center align-content-center align-self-center justify-content-lg-center align-items-lg-center"><span class="d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center currency" id="itemTotalPrice">{{ item.total_price }}</span></div>
+                            <div class="col-lg-3 d-flex d-lg-flex align-items-center align-content-center align-self-center justify-content-lg-center align-items-lg-center"><span class="d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center currency" id="itemTotalPrice" style="margin-top: 5px;margin-bottom: 5px;">{{ item.total_price }}&nbsp;</span></div>
                             <div class="col-lg-3">
                                 <div class="row">
-                                    <div class="col d-flex d-lg-flex d-xl-flex justify-content-start align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center" style="padding-left: 0px;"><input class="border rounded border-primary d-flex d-lg-flex justify-content-lg-center align-items-lg-center" type="number" value="{{ item.quantity }}" name="quantity" min="1" max="15" step="1" style="width: 90px;margin-left: 18px;"></div>
+                                    <div class="col d-flex d-lg-flex d-xl-flex justify-content-start align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center" style="padding-left: 0px;margin-bottom: 5px;"><input class="border rounded border-primary d-flex d-lg-flex justify-content-lg-center align-items-lg-center" type="number" value="{{ item.quantity }}" name="quantity" min="1" max="15" step="1" style="width: 90px;margin-left: 18px;"></div>
                                 </div>
                                 <div class="row">
-                                    <div class="col d-flex d-lg-flex d-xl-flex align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center"><strong class="d-lg-flex justify-content-lg-center align-items-lg-center price font-italic" style="margin-left: 0px;">{{ item.price }}</strong></div>
+                                    <div class="col d-flex d-lg-flex d-xl-flex align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center"><strong class="d-lg-flex justify-content-lg-center align-items-lg-center price font-italic" style="margin-left: 0px;">{{ item.price }}&nbsp;</strong></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                <div class="col-2 d-flex justify-content-center align-items-center"><i class="fas fa-trash-alt shadow-sm d-flex" style="font-size: 25px;"></i></div>
+                <div class="col-2 d-flex justify-content-center align-items-center"><i class="fas fa-trash-alt shadow-sm d-flex" style="font-size: 25px;margin-bottom: 6px;"></i></div>
             </div>
         {% endfor %}
         <div class="row justify-content-md-center py-5 p-4 bg-white">
