@@ -92,6 +92,23 @@
     }
 }
 
+.links-transition a {
+    transition: all 0.3s ease-in-out;
+}
+
+footer .social-icons {
+    width: 16px;
+}
+
+footer a {
+    text-decoration: none !important;
+    transition: opacity 0.3s ease-in-out;
+}
+
+footer a:hover {
+    opacity: 0.5;
+}
+
 /* PRODUCT */
 .img-choice:hover, .active {
     outline: 2px #0d6efd solid;

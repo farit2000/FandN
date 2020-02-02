@@ -5,7 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>F&amp;N</title>
+    <meta name="keywords" content="вазы, бетонные вазы, гипсовые вазы, многогранные вазы, f&n, вазы Казань, вазы Татарстан, горшки">
+    <meta name="description" content="F&N - интернет-магазин многогранных гипсовых и цементных ваз. Украсьте вашу комнату минималистичными
+    и элегантными вазами.">
+    <title>F&N</title>
     <link rel="stylesheet" href="/shop/static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/shop.css' %}">
     <script src="/shop/static/popper.js"></script>
@@ -45,30 +48,32 @@
             </div>
         </div>
     </nav>
-  
-    {% block content %}
-    {% endblock %}
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 
     <footer class="container py-5">
         <div class="row">
             <div class="col-12 col-md mb-3">F&amp;N</div>
             <div class="col-6 col-md">
                 <div class="float-md-right">
-                    <h5>О нас</h5>
-                    <ul class="list-unstyled text-small">
-                        <li><a class="text-muted" href="#">Кто мы?</a></li>
-                        <li><a class="text-muted" href="#">...</a></li>
-                        <li><a class="text-muted" href="#">...</a></li>
-                    </ul>
-                </div>
-            </div>
-           <div class="col-6 col-md">
-               <div class="float-md-right">
-                   <h5>Социальные сети</h5>
-                    <ul class="list-unstyled text-small">
-                        <li><a class="text-muted" href="#">Vk</a></li>
-                        <li><a class="text-muted" href="#">Instagram</a></li>
-                    </ul>
+                    <h5>Социальные сети</h5>
+                     <ul class="list-unstyled text-small">
+                         <li>
+                             <a class="text-muted" href="#">
+                                 <img src="/shop/static/media/logos/vk.svg" alt="vk" class="social-icons">
+                                 Vk
+                             </a>
+                         </li>
+                         <li class="mt-1">
+                             <a class="text-muted" href="#">
+                                 <img src="/shop/static/media/logos/instagram.svg" alt="instagram" class="social-icons">
+                                 Instagram
+                             </a>
+                         </li>
+                     </ul>
                 </div>
             </div>
         </div>
