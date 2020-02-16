@@ -110,8 +110,17 @@ footer a:hover {
 }
 
 /* PRODUCT */
+.img-choice {
+    margin-right: .5rem;
+    border-radius: .25rem;
+}
+
 .img-choice:hover, .active {
-    outline: 2px #0d6efd solid;
+    border: 2px #0d6efd solid;
+}
+
+.img-choice:last-of-type {
+    margin-right: 0px !important;
 }
 
 .img-choices-container {
