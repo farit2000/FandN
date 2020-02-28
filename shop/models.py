@@ -20,7 +20,7 @@ class Product(models.Model):
     attributes = JSONField()
     slug = models.SlugField(unique=True)
     is_available = models.BooleanField()
-    # null and blank must be removed, but it's impossible to create objects without them 
+    # null and blank must be removed, but it's impossible to create objects without them
     main_option = models.OneToOneField('ProductOptions', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
@@ -78,7 +78,7 @@ class Order(models.Model):
 
 
 class ProductInOrder(models.Model):
-    product = models.OneToOneField(Product, related_name='order_items', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE)
     options = models.ManyToManyField(ProductOptions)
     count = models.PositiveIntegerField(default=1)
     total_price = models.IntegerField(default=0)

@@ -37,6 +37,7 @@ class ProductInfo(View):
         cart = Cart(request)
         product = Product.objects.get(slug=slug)
         quantity = request.POST.get('quantity')
-        options = ProductOptions.objects.filter(id__in=request.POST.get('options'))
+        options = ProductOptions.objects.filter(id__in=request.POST.getlist('options'))
+        print(product, options)
         cart.add(product, options,  quantity)
         return HttpResponse(status=200)

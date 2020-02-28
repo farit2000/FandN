@@ -124,9 +124,16 @@
             let slug = '{{ product.slug }}';
             let dataToSent = $(this).serialize();
             $(chosenOptions).each(function (i, e) {
-                dataToSent += "&options=" + $(e).attr("data-id");
+                let id =  $(e).attr("data-id");
+                if (!optionsData.find(x => x.pk == id).fields.is_default)
+                    dataToSent += "&options=" + id;
             });
             $.post(`/product/${slug}/`, dataToSent, function () {
+                let btn = $('button');
+                btn.text('Добавлено').removeClass('btn-outline-primary').addClass('btn-outline-success').prop('disabled', true);
+                setTimeout(function () {
+                    btn.text('Добавить в корзину').removeClass('btn-outline-success').addClass('btn-outline-primary').prop('disabled', false);
+                }, 3000);
                 update_header();
             });
         });
