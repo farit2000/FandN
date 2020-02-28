@@ -37,7 +37,7 @@
     content: ' руб.';
 }
 
-.price::after{
+.price-per-product::after{
     content: ' руб/шт.';
 }
 
@@ -123,8 +123,14 @@ footer a:hover {
     margin-right: 0px !important;
 }
 
-.img-choices-container {
+.img-choices-container, .img-options-container{
     height: 70px;
+}
+
+.disabled {
+    filter: grayscale(100%);
+    opacity: 0.35;
+    border: none !important;
 }
 
 /* BASKET & ORDER */

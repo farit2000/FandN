@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop',
+    'django_json_widget',
 ]
 
 MIDDLEWARE = [
@@ -80,9 +81,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'shop',
-        'USER': 'postgres',
+        'USER': 'fandn',
         'PASSWORD': '123456789Raspberrypi',
-        'HOST': 'shop.creeozqpgkzm.us-east-1.rds.amazonaws.com',
+        'HOST': '78.138.129.80',
         'PORT': '5432',
     }
 }

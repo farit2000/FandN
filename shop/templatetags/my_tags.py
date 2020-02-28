@@ -12,4 +12,3 @@ def get_item(dictionary, key):
 @register.simple_tag(name='get_slug_by_id')
 def get_slug_by_id(id):
     return Product.objects.get(id=id).slug
-

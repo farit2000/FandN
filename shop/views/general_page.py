@@ -7,4 +7,5 @@ product_image = namedtuple('Product_image', ['product', 'first_image'])
 
 
 def index(request):
-    return render(request, 'shop/index.html', context={'products': Product.objects.all()})
+    products = Product.objects.filter(is_available=True)
+    return render(request, 'shop/index.html', context={'products': products})

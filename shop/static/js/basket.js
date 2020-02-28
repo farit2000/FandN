@@ -52,7 +52,7 @@ function recountPrices(e) {
         // В качестве прошлого значения поставить текущее
         info.target.data('oldVal', info.quantity);
         // Что послать во view
-        const toSend = {product_id: info.id, delta: delta, action: 1};
+        const toSend = {product_id: info.id, delta: delta, action: 1, option_ids: info.optionIds};
         // Обновить все на бэке
         $.post('/basket/', toSend, function () {
             let itemTotalPrice = info.commodity.find('#itemTotalPrice');
@@ -93,5 +93,6 @@ function getAllData(e) {
     let price = parseInt(commodity.data('price'));
     let id = commodity.data('id');
     let quantity = parseInt(commodity.find("input[name='quantity']").val());
-    return {target: target, commodity: commodity, price: price, id: id, quantity: quantity};
+    let optionIds = JSON.parse(commodity.find("ul[data-opt_ids]").attr('data-opt_ids'));
+    return {target: target, commodity: commodity, price: price, id: id, quantity: quantity, optionIds: optionIds};
 }

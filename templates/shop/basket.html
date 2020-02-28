@@ -1,4 +1,5 @@
 {% extends 'shop/base.html' %}
+{% load my_tags %}
 
 {% block content %}
     <div class="container border rounded-0 shadow-sm">
@@ -17,32 +18,76 @@
             </div>
         </div>
         {% for item in basket %}
-            <div class="row border-bottom" style="padding: 10px;background-color: #ffffff;margin: 20px;margin-bottom: 0px;" id="commodity" data-price="{{ item.price }}" data-id="{{ item.id }}">
-                <div class="col-3 col-lg-2 d-flex justify-content-center align-items-center"><img class="rounded d-flex" src="/{{ item.image }}" style="width: 70px;"></div>
-                    <div class="col-7 col-lg-8 align-self-center">
-                        <div class="row">
-                            <div class="col-lg-6 d-lg-flex justify-content-lg-center align-items-lg-center">
-                                <h5>{{ item.name }}</h5>
+{#            <div class="row border-bottom" style="padding: 10px;background-color: #ffffff;margin: 20px;margin-bottom: 0px;" id="commodity" data-price="{{ item.price }}" data-id="{{ item.id }}">#}
+{#                <div class="col-3 col-lg-2 d-flex justify-content-center align-items-center"><img class="rounded d-flex" src="/{{ item.image }}" style="width: 70px;"></div>#}
+{#                    <div class="col-7 col-lg-8 align-self-center">#}
+{#                        <div class="row">#}
+{#                            <div class="col-lg-6 d-lg-flex justify-content-lg-center align-items-lg-center">#}
+{#                                <h5>{{ item.name }}</h5>#}
+{#                            </div>#}
+{#                            <div class="col-lg-3 d-flex d-lg-flex align-items-center align-content-center align-self-center justify-content-lg-center align-items-lg-center"><span class="d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center currency" id="itemTotalPrice" style="margin-top: 5px;margin-bottom: 5px;">{{ item.total_price }}&nbsp;</span></div>#}
+{#                            <div class="col-lg-3">#}
+{#                                <div class="row">#}
+{#                                    <div class="col d-flex d-lg-flex d-xl-flex justify-content-start align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center" style="padding-left: 0px;margin-bottom: 5px;"><input class="border rounded border-primary d-flex d-lg-flex justify-content-lg-center align-items-lg-center" type="number" value="{{ item.quantity }}" name="quantity" min="1" max="15" step="1" style="width: 90px;margin-left: 18px;"></div>#}
+{#                                </div>#}
+{#                                <div class="row">#}
+{#                                    <div class="col d-flex d-lg-flex d-xl-flex align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center"><strong class="d-lg-flex justify-content-lg-center align-items-lg-center price font-italic" style="margin-left: 0px;">{{ item.price }}&nbsp;</strong></div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                <div class="col-2 d-flex justify-content-center align-items-center"><i class="fas fa-trash-alt shadow-sm d-flex" style="font-size: 25px;margin-bottom: 6px;"></i></div>#}
+{#            </div>#}
+
+
+
+        <div class="row border-bottom" id="commodity" data-price="{{ item.product_price_with_options }}" data-id="{{ item.product_id }}" style="padding: 10px;background-color: #ffffff;margin: 20px;margin-bottom: 0px;">
+            <div class="col-3 col-lg-2 d-flex justify-content-center align-items-center"><img class="rounded d-flex" src="/{{ item.product_image.path }}" style="width: 70px;"></div>
+            <div class="col-7 col-md-7 col-lg-8 align-self-center">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 d-lg-flex justify-content-lg-start align-items-lg-center">
+                        <div class="row d-flex flex-column">
+                            <div class="col-md-8 col-lg-12">
+                                <h5 class="d-lg-flex justify-content-lg-start align-items-lg-center" style="margin-bottom: 0px;">{{ item.product_name }}</h5>
                             </div>
-                            <div class="col-lg-3 d-flex d-lg-flex align-items-center align-content-center align-self-center justify-content-lg-center align-items-lg-center"><span class="d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center currency" id="itemTotalPrice" style="margin-top: 5px;margin-bottom: 5px;">{{ item.total_price }}&nbsp;</span></div>
-                            <div class="col-lg-3">
-                                <div class="row">
-                                    <div class="col d-flex d-lg-flex d-xl-flex justify-content-start align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center" style="padding-left: 0px;margin-bottom: 5px;"><input class="border rounded border-primary d-flex d-lg-flex justify-content-lg-center align-items-lg-center" type="number" value="{{ item.quantity }}" name="quantity" min="1" max="15" step="1" style="width: 90px;margin-left: 18px;"></div>
-                                </div>
-                                <div class="row">
-                                    <div class="col d-flex d-lg-flex d-xl-flex align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center"><strong class="d-lg-flex justify-content-lg-center align-items-lg-center price font-italic" style="margin-left: 0px;">{{ item.price }}&nbsp;</strong></div>
-                                </div>
+                            <div class="col">
+                                <ul class="list-unstyled mt-3" data-opt_ids="{{ item.option_ids }}">
+                                    {% for n, v in item.option_name_and_value.items %}
+                                        <li class="mb-0 text-secondary font-italic" style="font-size: 0.8rem">* Добавлен {{ n|lower }}: {{ v|lower }}</li>
+                                    {% endfor %}
+                                </ul>
                             </div>
                         </div>
                     </div>
-                <div class="col-2 d-flex justify-content-center align-items-center"><i class="fas fa-trash-alt shadow-sm d-flex" style="font-size: 25px;margin-bottom: 6px;"></i></div>
+                    <div class="col-md-8 col-lg-3 d-flex d-lg-flex align-items-center align-content-center align-self-center justify-content-lg-center align-items-lg-center" style="margin-bottom: 0px;">
+                        <span class="currency" id="itemTotalPrice">
+                            {{ item.product_total_price }}
+                        </span>
+                    </div>
+                    <div class="col-md-5 col-lg-3 d-flex flex-column justify-content-center align-content-center">
+                        <div class="row">
+                            <div class="col d-flex d-lg-flex d-xl-flex justify-content-start align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center" style="padding-left: 0px;margin-bottom: 5px;">
+                                <input class="border mt-2 mb-1 rounded border-primary d-flex d-lg-flex justify-content-lg-center align-items-lg-center" type="number" value="{{ item.quantity }}" name="quantity" min="1" max="15" step="1" style="width: 90px;margin-left: 17px;">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex d-lg-flex d-xl-flex align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center">
+                                <strong class="d-lg-flex justify-content-lg-center align-items-lg-center" style="margin-left: 0px;">
+                                    <em class="price-per-product">{{ item.product_price_with_options }}</em>
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="col-2 d-flex flex-column justify-content-center align-items-center"><i class="fas fa-trash-alt shadow-sm d-flex" style="font-size: 25px;margin-bottom: 6px; cursor: pointer;"></i></div>
+        </div>
         {% endfor %}
         <div class="row justify-content-md-center py-5 p-4 bg-white">
             <div class="col-md-auto">
-                <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Полная стоимость</div>
+                <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold text-center">Полная стоимость</div>
                 <div class="p-4">
-                    <p class="font-italic mb-4">Полная стоимость указывается без учета доставки.</p>
+                    <p class="font-italic mb-4 text-center">Полная стоимость указывается без учета доставки.</p>
                     <ul class="list-unstyled mb-4">
                         <li class="d-flex justify-content-between py-3 border-bottom">
                             <strong class="text-muted">Сумма</strong>
