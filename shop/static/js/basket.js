@@ -76,7 +76,7 @@ function removeCommodity(e) {
     // Обновить общую сумму
     updateVal(generalTotalPrice, summand);
     // Обновить все на бэке
-    $.post('/basket/', { product_id: info.id, action: 0}, update_header);
+    $.post('/basket/', {product_id: info.id, action: 0, option_ids: info.optionIds}, update_header);
 }
 
 let fnDelay = (function() {

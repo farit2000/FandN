@@ -125,8 +125,7 @@
             let dataToSent = $(this).serialize();
             $(chosenOptions).each(function (i, e) {
                 let id =  $(e).attr("data-id");
-                if (!optionsData.find(x => x.pk == id).fields.is_default)
-                    dataToSent += "&options=" + id;
+                dataToSent += "&options=" + id;
             });
             $.post(`/product/${slug}/`, dataToSent, function () {
                 let btn = $('button');
