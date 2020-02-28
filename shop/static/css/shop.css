@@ -62,9 +62,9 @@
 }
 
 .dropdown-menu .quantity {
-    position: absolute;
-    bottom: 10px;
-    left: 7px;
+    position: relative;
+    top: 30px;
+    right: 80px;
 }
 
 /* MAIN PAGE */
