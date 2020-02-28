@@ -84,19 +84,17 @@ class ProductInOrder(models.Model):
     total_price = models.IntegerField(default=0)
     order = models.ForeignKey(Order, related_name='products', on_delete=models.CASCADE, default=0)
 
-    def save(self, *args, **kwargs):
-        self.total_price = self.count * self.product.price
-        super().save(*args, **kwargs)
-
     def __str__(self):
         return "%s, sum: %s" % (self.product, self.total_price)
 
 
-@receiver(post_save, sender=ProductInOrder)
+@receiver(post_save, sender=ProductInOrder.options)
 def count_total_order_price(sender, instance, **kwargs):
     all_products_in_order = ProductInOrder.objects.filter(order=instance.order)
     count = 0
     for product in all_products_in_order:
         count += product.total_price
+        for option in product.options.all():
+            count += option.delta
     instance.order.total_price = count
     instance.order.save(force_update=True)

@@ -37,7 +37,7 @@
     content: ' руб.';
 }
 
-.price::after{
+.price-per-product::after{
     content: ' руб/шт.';
 }
 

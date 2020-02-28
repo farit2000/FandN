@@ -28,7 +28,7 @@ class Cart:
     def reduce(self, product, options, quantity=1):
         option_ids = [option.id for option in options]
         if str(product.id) + str(option_ids) in self.cart.keys():
-            self.cart[str(product.id) + str(option_ids)] -= int(quantity)
+            self.cart[str(product.id) + str(option_ids)]['quantity'] -= int(quantity)
             self.save()
 
     def save(self):
@@ -62,6 +62,8 @@ class Cart:
                 option_name_and_values[option.option_group.name] = option.option_value
             product['option_name_and_value'] = option_name_and_values
         for item in self.cart.values():
+            # item['product_price'] = int(item['product_price_with_options'])
+            # item['product_total_price'] = int(item['product_price_with_options']) * int(item['quantity'])
             yield item
 
     def __len__(self):
@@ -73,3 +75,4 @@ class Cart:
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
         self.session.modified = True
+
