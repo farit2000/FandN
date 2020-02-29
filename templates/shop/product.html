@@ -2,7 +2,7 @@
 {% load my_tags %}
 
 {% block content %}
-    <div class="p-3 p-md-5 mx-auto bg-light">
+    <div class="p-3 p-md-5 mx-auto bg-light product-page">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-6">
@@ -54,9 +54,9 @@
             </div>
         </div>
     </div>
-    <script type="module" src="/shop/static/js/product.js"></script>
     <script type="module">
         import {update_header} from '/shop/static/js/common.js';
+
         const optionsContainer = ".img-options-container";
         const chosenOptions = ".img-options-container .active";
         const optionsData = JSON.parse('{{ opts_data }}');
@@ -64,6 +64,7 @@
         const activeImage = $('.main-image');
 
         $('.img-choices-container').find('.img-choice').first().addClass('active');
+        $('title').append(' - {{ product.name }}');
         setBasePreferences();
 
         function setBasePreferences()
