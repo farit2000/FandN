@@ -47,16 +47,16 @@
     color: #fff;
 }
 
-.bag {
+.header-icon {
     color: #999;
     transition: ease-in-out color .15s;
 }
 
-.bag:hover {
+.header-icon:hover {
     color: #fff;
 }
 
-.bag:hover .counter {
+.header-icon:hover .counter {
     background-color: #fff;
     color: #000;
 }

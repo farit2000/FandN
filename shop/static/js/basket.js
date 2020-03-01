@@ -4,6 +4,8 @@ import {update_header} from '/shop/static/js/common.js';
 const generalTotalPrice = $('#generalTotalPrice');
 const orderLink = $('#order');
 let isNegativeQuantity = false;
+
+$('title').append(' - Корзина');
 chageOrderButton();
 
 // Ко всем input'ам с name=quantity записать текущее значение и добавить событие

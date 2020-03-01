@@ -9,7 +9,7 @@
                     <img src="/{{ product.main_option.images.first.path }}" class="main-image img-fluid mb-3" alt="{{ product.name }}">
                     <div class="img-choices-container d-flex justify-content-center mb-4">
                         {% for image in product.main_option.images.all %}
-                            <img src="/{{ image.path }}" alt="vase" class="img-choice" width="70">
+                            <img src="/{{ image.path }}" alt="{{ product.name }}" class="img-choice" width="70">
                         {% endfor %}
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                         <p>{{ opt_group.name }}</p>
                         <div class="img-options-container d-flex justify-content-left mb-4">
                              {% for e in opt_group.options.all %}
-                                 <img src="/{{ e.images.first.path }}" alt="vase" class="img-choice
+                                 <img src="/{{ e.images.first.path }}" alt="{{ opt_group.name }}: {{ e.option_value }}" class="img-choice
                                 {% if e.is_default %}active{% endif %}" width="70" data-id="{{ e.id }}">
                              {% endfor %}
                         </div>
