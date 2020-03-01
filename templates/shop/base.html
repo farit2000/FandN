@@ -3,12 +3,29 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <title>F&N</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keywords" content="вазы, бетонные вазы, гипсовые вазы, многогранные вазы, f&n, вазы Казань, вазы Татарстан, горшки">
+    <meta name="keywords" content="вазы, бетонные вазы, гипсовые вазы, многогранные вазы, f&n, Казань, Татарстан, граненая ваза">
     <meta name="description" content="F&N - интернет-магазин многогранных гипсовых и цементных ваз. Украсьте вашу комнату минималистичными
     и элегантными вазами.">
-    <title>F&N</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'media/favicons/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'media/favicons/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'media/favicons/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'media/favicons/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'media/favicons/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'media/favicons/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'media/favicons/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'media/favicons/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'media/favicons/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'media/favicons/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'media/favicons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'media/favicons/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'media/favicons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'media/favicons/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'media/favicons/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/shop/static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/shop.css' %}">
     <script src="/shop/static/popper.js"></script>
@@ -17,25 +34,32 @@
     <script src="/shop/static/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <nav class="site-header sticky-top py-1">
-        <div class="container d-flex flex-md-row justify-content-between">
-            <a class="py-2"></a>
-            <a class="py-2" href="/">F&amp;N</a>
-            <div class="dropdown py-2">
-                <div class="bag" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-shopping-bag fa-lg "></i>
+    <nav class="site-header sticky-top py-2">
+        <div class="container d-flex flex-md-row justify-content-between align-items-center">
+            <a href="/info/"><i class="fas fa-info-circle py-2 header-icon"></i></a>
+            <a href="/">F&amp;N</a>
+            <div class="dropdown">
+                <div class="header-icon" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-shopping-bag fa-lg"></i>
                     <div class="badge counter">{{ bag_quantity }}</div>
                 </div>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                    {% for k, v in cart.items %}
-                        <a class="dropdown-item d-flex text-reset" href="/product/{% get_slug_by_id k %}/" style="opacity: 1 !important;">
+                    {% for item in cart %}
+                        <a class="dropdown-item d-flex text-reset" href="/product/{{ item.product_slug }}/" style="opacity: 1 !important;">
                             <div class="position-relative">
                                 <div class="p-3">
-                                    <img src="/{{ v|get_item:'main_image' }}" alt="product" class="rounded" style="width: 70px; height: 70px;">
+                                    <img src="/{{ item.product_image.path }}" alt="{{ item.product_name }}" class="rounded" style="width: 70px; height: 70px;">
+                                    <div class="badge counter quantity">{{ item.quantity }}</div>
                                 </div>
-                                <div class="badge counter quantity">{{ v|get_item:'quantity' }}</div>
                             </div>
-                            <p class="pt-3">{{ v|get_item:'name' }}</p>
+                            <div class="d-flex flex-column">
+                                <p class="pt-3">{{ item.product_name }}</p>
+                                <ul class="list-unstyled">
+                                    {% for n, v in item.option_name_and_value.items %}
+                                        <li class="mb-0 text-secondary font-italic" style="font-size: 0.8rem">* Добавлен {{ n|lower }}: {{ v|lower }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </a>
                     {% empty %}
                         <p class="text-center mt-2 mb-3">Ваша корзина пуста</p>
@@ -68,7 +92,7 @@
                              </a>
                          </li>
                          <li class="mt-1">
-                             <a class="text-muted" href="#" target="blank">
+                             <a class="text-muted btn disabled p-0" href="#" target="blank">
                                  <img src="/shop/static/media/logos/instagram.svg" alt="instagram" class="social-icons">
                                  Instagram
                              </a>
