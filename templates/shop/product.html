@@ -2,14 +2,14 @@
 {% load my_tags %}
 
 {% block content %}
-    <div class="p-3 p-md-5 mx-auto bg-light">
+    <div class="p-3 p-md-5 mx-auto bg-light product-page">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-6">
                     <img src="/{{ product.main_option.images.first.path }}" class="main-image img-fluid mb-3" alt="{{ product.name }}">
                     <div class="img-choices-container d-flex justify-content-center mb-4">
                         {% for image in product.main_option.images.all %}
-                            <img src="/{{ image.path }}" alt="vase" class="img-choice" width="70">
+                            <img src="/{{ image.path }}" alt="{{ product.name }}" class="img-choice" width="70">
                         {% endfor %}
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                         <p>{{ opt_group.name }}</p>
                         <div class="img-options-container d-flex justify-content-left mb-4">
                              {% for e in opt_group.options.all %}
-                                 <img src="/{{ e.images.first.path }}" alt="vase" class="img-choice
+                                 <img src="/{{ e.images.first.path }}" alt="{{ opt_group.name }}: {{ e.option_value }}" class="img-choice
                                 {% if e.is_default %}active{% endif %}" width="70" data-id="{{ e.id }}">
                              {% endfor %}
                         </div>
@@ -54,9 +54,9 @@
             </div>
         </div>
     </div>
-    <script type="module" src="/shop/static/js/product.js"></script>
     <script type="module">
         import {update_header} from '/shop/static/js/common.js';
+
         const optionsContainer = ".img-options-container";
         const chosenOptions = ".img-options-container .active";
         const optionsData = JSON.parse('{{ opts_data }}');
@@ -64,6 +64,7 @@
         const activeImage = $('.main-image');
 
         $('.img-choices-container').find('.img-choice').first().addClass('active');
+        $('title').append(' - {{ product.name }}');
         setBasePreferences();
 
         function setBasePreferences()
@@ -125,8 +126,7 @@
             let dataToSent = $(this).serialize();
             $(chosenOptions).each(function (i, e) {
                 let id =  $(e).attr("data-id");
-                if (!optionsData.find(x => x.pk == id).fields.is_default)
-                    dataToSent += "&options=" + id;
+                dataToSent += "&options=" + id;
             });
             $.post(`/product/${slug}/`, dataToSent, function () {
                 let btn = $('button');

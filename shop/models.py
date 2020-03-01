@@ -72,6 +72,7 @@ class Order(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     total_price = models.IntegerField(default=0)
     status = models.CharField(max_length=2, choices=ORDER_STATUSES, default='NE')
+    addition = models.TextField(max_length=600, default='', null=True, blank=True)
 
     def __str__(self):
         return "%s, sum: %s" % (self.client, self.total_price)

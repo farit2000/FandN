@@ -20,7 +20,7 @@
                     <h2 class="display-5">{{ product.name }}</h2>
                     <a class="py-2 text-primary" href="product/{{ product.slug }}">Узнать больше &rsaquo;</a>
                 </div>
-                <img src="/{{ product.main_option.images.first.path }}" class="img-fluid px-5 pb-5" alt="Responsive image">
+                <img src="/{{ product.main_option.images.first.path }}" class="img-fluid px-5 pb-5" alt="{{ product.name }}">
             </div>
 {#            Если последний и без пары, то добаить невидимую пару#}
             {% if forloop.last and forloop.counter0|divisibleby:2 %}

@@ -3,7 +3,6 @@ from shop.models import Product, Image, ProductOptions
 
 
 class Cart:
-
     def __init__(self, request):
         self.session = request.session
         cart = self.session.get(settings.CART_SESSION_ID)
@@ -49,21 +48,22 @@ class Cart:
         for product in self.cart.values():
             prod = Product.objects.get(id=product['product_id'])
             options = ProductOptions.objects.filter(id__in=list(product['option_ids']))
+            not_default_options = options.filter(is_default=False)
             product['product_name'] = prod.name
             product['product_slug'] = prod.slug
             product['product_description'] = prod.description
-            product['product_image'] = prod.main_option.images.first()
+            product['product_image'] = prod.main_option.images.first() if not not_default_options \
+                else not_default_options.first().images.first()
             product['product_attributes'] = prod.attributes
             product['product_category'] = prod.category
             product['product_total_price'] = product['product_price_with_options'] * product['quantity']
             product['product_option_ids'] = product['option_ids']
             option_name_and_values = {}
             for option in options:
-                option_name_and_values[option.option_group.name] = option.option_value
+                if not option.is_default:
+                    option_name_and_values[option.option_group.name] = option.option_value
             product['option_name_and_value'] = option_name_and_values
         for item in self.cart.values():
-            # item['product_price'] = int(item['product_price_with_options'])
-            # item['product_total_price'] = int(item['product_price_with_options']) * int(item['quantity'])
             yield item
 
     def __len__(self):
@@ -75,4 +75,3 @@ class Cart:
     def clear(self):
         del self.session[settings.CART_SESSION_ID]
         self.session.modified = True
-

@@ -4,6 +4,8 @@ import {update_header} from '/shop/static/js/common.js';
 const generalTotalPrice = $('#generalTotalPrice');
 const orderLink = $('#order');
 let isNegativeQuantity = false;
+
+$('title').append(' - Корзина');
 chageOrderButton();
 
 // Ко всем input'ам с name=quantity записать текущее значение и добавить событие
@@ -76,7 +78,7 @@ function removeCommodity(e) {
     // Обновить общую сумму
     updateVal(generalTotalPrice, summand);
     // Обновить все на бэке
-    $.post('/basket/', { product_id: info.id, action: 0}, update_header);
+    $.post('/basket/', {product_id: info.id, action: 0, option_ids: info.optionIds}, update_header);
 }
 
 let fnDelay = (function() {
