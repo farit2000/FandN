@@ -1,4 +1,5 @@
 {% extends 'shop/base.html' %}
+{% load my_tags %}
 
 {% block content %}
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
@@ -19,9 +20,7 @@
                     <h2 class="display-5">{{ product.name }}</h2>
                     <a class="py-2 text-primary" href="product/{{ product.slug }}">Узнать больше &rsaquo;</a>
                 </div>
-                {% with product.images.first.image as image_path %}
-                    <img src="/{{ image_path }}" class="img-fluid px-5 pb-5" alt="Responsive image">
-                {% endwith %}
+                <img src="/{{ product.main_option.images.first.path }}" class="img-fluid px-5 pb-5" alt="{{ product.name }}">
             </div>
 {#            Если последний и без пары, то добаить невидимую пару#}
             {% if forloop.last and forloop.counter0|divisibleby:2 %}

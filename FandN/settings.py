@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_json_widget',
     'shop',
 ]
 
@@ -80,9 +81,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'shop',
-        'USER': 'postgres',
+        'USER': 'fandn',
         'PASSWORD': '123456789Raspberrypi',
-        'HOST': 'shop.creeozqpgkzm.us-east-1.rds.amazonaws.com',
+        'HOST': '78.138.129.80',
         'PORT': '5432',
     }
 }
@@ -126,3 +127,11 @@ USE_TZ = True
 
 STATIC_URL = '/shop/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'shop/static')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'fandn.market@gmail.com'
+EMAIL_HOST_PASSWORD = '123456789Raspberrypi'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Server <server@whatever.com>'

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>F&N</title>
+</head>
+<body>
+    <p>Спасибо за заказ!</p>
+    <p style="padding-bottom: 10px;">Вы совершили заказ на сайте
+        <a href="https://fandn.ru" style="text-decoration: none; color: #0d6efd;">fandn.ru</a>.
+        В скором времени мы свяжемся с вами для уточнения деталей заказа.</p>
+    <p>Если письмо попало к Вам случайно - проигнорируйте его.</p>
+{#    <p>Вы заказали:</p>#}
+{#    <ul style="list-style-type: none;">#}
+{#    {% for item in basket %}#}
+{#        <li>#}
+{#            <h4>{{ item.product_name }}</h4>#}
+{#            <ul style="list-style-type: none;">#}
+{#                {% for n, v in item.option_name_and_value.items %}#}
+{#                    <li style="font-size: 0.8rem; font-style: italic; color: #999; margin-left: 20px;">* Добавлен {{ n|lower }}: {{ v|lower }}</li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#            <p style="margin: 10px 0 5px 0; padding: 0;"><span style="font-weight: bold;">Количество: </span>{{ item.quantity }} шт.</p>#}
+{#            <p style="margin: 0 0 5px 0; padding: 0;"><span style="font-weight: bold;">Цена за единицу товара: </span>{{ item.product_price_with_options }} руб/шт.</p>#}
+{#            <p style="margin: 0; padding: 0;"><span style="font-weight: bold;">Общая стоимость: </span>{{ item.product_total_price }} руб.</p>#}
+{#        </li>#}
+{#    {% endfor %}#}
+{#    </ul>#}
+    <p>C уважением, F&N</p>
+</body>
+</html>

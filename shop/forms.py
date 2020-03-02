@@ -1,5 +1,5 @@
 from django import forms
-from .models import Client
+from .models import Client, Order
 
 
 class ClientForm(forms.ModelForm):
@@ -40,3 +40,20 @@ class ClientForm(forms.ModelForm):
     class Meta:
         model = Client
         fields = ('first_name', 'last_name', 'email', 'phone')
+
+
+class OrderForm(forms.ModelForm):
+    addition = forms.CharField(widget=forms.Textarea
+        (
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Комментарий к заказу',
+            'type': 'text',
+            'maxlength': '600',
+            'style': 'height: 150px;',
+        }
+    ), label='', required=False)
+
+    class Meta:
+        model = Order
+        fields = ('addition',)
