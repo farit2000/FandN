@@ -1,77 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>email</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>F&N</title>
 </head>
-
 <body>
-    <div class="row">
-        <div class="col">
-            <h1 class="display-4 text-center" style="padding-bottom: 10px;padding-top: 15px;">Спасибо за заказ!</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <p class="text-center" style="padding-bottom: 10px;">Вы совершили заказ на сайте fandn.ru. В скором времени мы свяжемся с вами для уточнения деталей заказа.</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col" style="padding-bottom: 10px;">
-            <p class="text-center text-info">Если письмо попало к Вам случайно, проигнорируйте его.</p>
-        </div>
-    </div>
-    <div class="row d-none d-sm-none d-md-none d-lg-flex d-xl-flex border-bottom" style="margin: 20px;margin-bottom: 0px;">
-        <div class="col-lg-6 d-lg-flex justify-content-lg-center align-items-lg-center border-0 bg-light" style="padding: 10px;">
-            <h6 class="text-uppercase d-lg-flex justify-content-lg-center p-2 px-3"><strong>Продукт</strong></h6>
-        </div>
-        <div class="col-lg-3 d-lg-flex flex-grow-0 flex-shrink-0 flex-wrap justify-content-lg-center align-items-lg-center border-0 bg-light">
-            <h6 class="text-uppercase d-lg-flex justify-content-lg-center align-items-lg-center p-2 px-3"><strong>Цена</strong></h6>
-        </div>
-        <div class="col-lg-3 d-lg-flex justify-content-lg-center border-0 bg-light">
-            <h6 class="text-uppercase d-lg-flex justify-content-lg-center align-items-lg-center p-2 px-3"><strong>Количество</strong></h6>
-        </div>
-    </div>
-    {% for item in basket %}
-    <div class="row border-bottom" style="padding: 10px;background-color: #ffffff;margin: 20px;margin-bottom: 0px;">
-        <div class="col-3 col-lg-2 d-flex justify-content-center align-items-center">
-            <img class="rounded d-flex" src="/{{ item.product_image.path }}" alt="{{ item.product_name }}" style="width: 70px;">
-        </div>
-        <div class="col-7 col-lg-10 align-self-center">
-            <div class="row">
-                <div class="col-md-6 col-lg-5 d-lg-flex justify-content-lg-start align-items-lg-center">
-                    <div class="row d-flex flex-column">
-                        <div class="col-md-8 col-lg-12">
-                            <h5 class="d-lg-flex justify-content-lg-start align-items-lg-center" style="margin-bottom: 0px;">{{ item.product_name }}</h5>
-                        </div>
-                        <div class="col">
-                           <ul class="list-unstyled mt-3" data-opt_ids="{{ item.option_ids }}">
-                                {% for n, v in item.option_name_and_value.items %}
-                                    <li class="mb-0 text-secondary font-italic" style="font-size: 0.8rem">* Добавлен {{ n|lower }}: {{ v|lower }}</li>
-                                {% endfor %}
-                           </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 d-flex d-lg-flex align-items-center align-content-center align-self-center justify-content-lg-center align-items-lg-center"><span class="d-flex d-lg-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center" style="margin-right: 40px;">{{ item.product_total_price }} руб.</span></div>
-                <div class="col-lg-3 d-flex flex-column justify-content-center align-items-center align-content-center">
-                    <div class="row">
-                        <div class="col d-flex d-lg-flex d-xl-flex justify-content-start align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center" style="padding-left: 0px;"><strong class="d-flex align-items-center" style="margin-left: 15px;margin-right: 20px;">{{ item.quantity }} шт.</strong></div>
-                    </div>
-                    <div class="row">
-                        <div class="col d-flex d-lg-flex d-xl-flex align-items-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center"><strong class="d-lg-flex justify-content-lg-center align-items-lg-center" style="margin-left: 0px;margin-right: 20px;"><em>{{ item.product_price_with_options }} руб/шт.</em></strong></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <p>Спасибо за заказ!</p>
+    <p style="padding-bottom: 10px;">Вы совершили заказ на сайте
+        <a href="https://fandn.ru" style="text-decoration: none; color: #0d6efd;">fandn.ru</a>.
+        В скором времени мы свяжемся с вами для уточнения деталей заказа.</p>
+    <p>Если письмо попало к Вам случайно - проигнорируйте его.</p>
+{#    <p>Вы заказали:</p>#}
+{#    <ul style="list-style-type: none;">#}
+{#    {% for item in basket %}#}
+{#        <li>#}
+{#            <h4>{{ item.product_name }}</h4>#}
+{#            <ul style="list-style-type: none;">#}
+{#                {% for n, v in item.option_name_and_value.items %}#}
+{#                    <li style="font-size: 0.8rem; font-style: italic; color: #999; margin-left: 20px;">* Добавлен {{ n|lower }}: {{ v|lower }}</li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#            <p style="margin: 10px 0 5px 0; padding: 0;"><span style="font-weight: bold;">Количество: </span>{{ item.quantity }} шт.</p>#}
+{#            <p style="margin: 0 0 5px 0; padding: 0;"><span style="font-weight: bold;">Цена за единицу товара: </span>{{ item.product_price_with_options }} руб/шт.</p>#}
+{#            <p style="margin: 0; padding: 0;"><span style="font-weight: bold;">Общая стоимость: </span>{{ item.product_total_price }} руб.</p>#}
+{#        </li>#}
+{#    {% endfor %}#}
+{#    </ul>#}
+    <p>C уважением, F&N</p>
 </body>
-
 </html>
