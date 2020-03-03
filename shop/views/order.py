@@ -55,6 +55,6 @@ def write_to_order(basket, order, client_email):
         )
         send_mail('Заказ в интернет магазине F&N', 'Благодарим вас за проявленный интерес к нашей продукции',
                   'fandn.market@gmail.com', [client_email], html_message=html_message)
-        # send_mail('Новый заказ!!!', 'Новый заказ на сайте от клиета {}'.format(client_email), 'fandn.market@gmail.com',
-        #           ['farit.schamardanov1@gmail.com'], html_message = )
+        send_mail('Новый заказ!',  'Новый заказ!', 'fandn.market@gmail.com',
+                  ['nekit.euro2012@gmail.com', 'farit.schamardanov1@gmail.com'])
     basket.clear()
